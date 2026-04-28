@@ -1,34 +1,52 @@
-# my-video-converter
+# 视频格式转换工具（Electron + FFmpeg）
 
-A minimal Electron application with JavaScript
+一个基于 Electron + Node.js + FFmpeg 开发的桌面端视频格式转换工具，支持将 `.ts`、`.flv` 等流媒体视频格式快速转换为 `.mp4` 格式，适用于视频整理、本地播放兼容处理、资源归档等场景。
 
-## Recommended IDE Setup
+---
 
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+## 项目简介
 
-## Project Setup
+本工具主要用于解决部分视频格式（如 `.ts`、`.flv`）在播放器兼容性较差、不方便编辑、上传或分享的问题。
 
-### Install
+通过集成 FFmpeg，实现高效稳定的视频格式转换，并使用 Electron 构建跨平台桌面应用，操作简单、界面直观。
 
-```bash
-$ npm install
-```
+支持队列处理。转码失败的视频会另外纳入一个失败文件夹方便查阅。
 
-### Development
+---
 
-```bash
-$ npm run dev
-```
+## 当前功能
 
-### Build
+### 已支持格式
 
-```bash
-# For windows
-$ npm run build:win
+- `.ts` → `.mp4`
+- `.flv` → `.mp4`
 
-# For macOS
-$ npm run build:mac
+### 功能特点
 
-# For Linux
-$ npm run build:linux
-```
+- 桌面端可视化操作界面
+- 支持本地视频文件选择
+- 一键开始转换
+- 基于 FFmpeg 的高质量无损封装（可配置）
+- 转换进度提示
+- 输出目录自定义（可扩展）
+- 支持 Windows 平台（当前）
+
+---
+
+## 技术栈
+
+### 前端 / 桌面端
+
+- Electron
+- HTML / CSS / JavaScript
+
+### 后端能力
+
+- Node.js `v22.19.0`
+
+### 视频处理
+
+- FFmpeg
+
+---
+
