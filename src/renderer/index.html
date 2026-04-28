@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>极速视频转换器</title>
+    <style>
+        /* 彻底解锁窗口交互 */
+        * {
+            -webkit-app-region: no-drag;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            margin: 0;
+            padding: 15px;
+            overflow: hidden;
+        }
+
+        .header {
+            background: #252526;
+            padding: 10px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #333;
+        }
+
+        /* 路径输入框 */
+        input#output-path {
+            background: #333;
+            border: 1px solid #555;
+            color: #fff;
+            padding: 6px 10px;
+            flex: 1;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        input#output-path:focus {
+            border-color: #0078d4;
+        }
+
+        #drop-zone {
+            border: 2px dashed #555;
+            padding: 40px;
+            text-align: center;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #252526;
+            color: #888;
+            transition: 0.2s;
+        }
+
+        #drop-zone.active {
+            border-color: #28a745;
+            background: #2a2d2e;
+            color: #fff;
+        }
+
+        #queue-list {
+            background: #111;
+            height: 180px;
+            overflow-y: auto;
+            margin: 10px 0;
+            border: 1px solid #333;
+            border-radius: 4px;
+        }
+
+        #log-output {
+            background: #000;
+            color: #85c46c;
+            padding: 8px;
+            height: 100px;
+            overflow-y: auto;
+            font-family: Consolas, monospace;
+            font-size: 11px;
+            border-radius: 4px;
+        }
+
+        button {
+            background: #0078d4;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0086ee;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        #btn-start {
+            background: #28a745;
+            flex: 3;
+            font-weight: bold;
+            padding: 12px;
+        }
+
+        #btn-clear {
+            background: #d9534f;
+            flex: 1;
+            font-weight: bold;
+        }
+
+        progress {
+            width: 100%;
+            height: 12px;
+            margin-bottom: 5px;
+            appearance: none;
+        }
+
+        progress::-webkit-progress-bar {
+            background-color: #333;
+            border-radius: 10px;
+        }
+
+        progress::-webkit-progress-value {
+            background-color: #28a745;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <strong>保存到：</strong>
+        <input type="text" id="output-path" placeholder="请输入或选择路径 (留空则保存至原文件夹)">
+        <button id="btn-select-dir">浏览...</button>
+    </div>
+
+    <div id="drop-zone">💡 将 .ts 或 .flv 文件拖入或点击此处选择</div>
+
+    <div id="queue-list">
+        <div style="color:#555; text-align:center; padding-top:20px;">等待添加任务...</div>
+    </div>
+
+    <progress id="total-progress" value="0" max="100"></progress>
+
+    <div class="btn-group">
+        <button id="btn-start">🚀 开始执行转换</button>
+        <button id="btn-clear">🗑️ 清空队列</button>
+    </div>
+
+    <div id="log-output" style="margin-top: 10px;"></div>
+
+    <script type="module" src="./src/renderer.js"></script>
+</body>
+
+</html>
