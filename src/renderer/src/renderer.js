@@ -3,6 +3,7 @@ window.onload = () => {
   const btnSelectDir = document.getElementById('btn-select-dir')
   const outputPathInput = document.getElementById('output-path')
   const btnStart = document.getElementById('btn-start')
+  const chkRenameByCtime = document.getElementById('chk-rename-by-ctime')
   const btnClear = document.getElementById('btn-clear')
   const queueList = document.getElementById('queue-list')
   const logOutput = document.getElementById('log-output')
@@ -93,7 +94,8 @@ window.onload = () => {
 
     window.electron.ipcRenderer.send('start-convert', {
       inputPath: nextFile.path,
-      customFolder: outputPathInput.value.trim() || ''
+      customFolder: outputPathInput.value.trim() || '',
+      renameByCtime: !!chkRenameByCtime.checked
     })
   }
 
@@ -141,6 +143,21 @@ window.onload = () => {
     if (file) file.status = 'done'
     updateQueueUI()
     processNext()
+  })
+
+  // 接收主进程发来的显著提醒（例如回退到序号后缀）
+  window.electron.ipcRenderer.on('conversion-warning', (_, msg) => {
+    // 显示在页面顶部并突出
+    const warn = document.createElement('div')
+    warn.textContent = `⚠️ ${msg}`
+    warn.style.background = '#ffe8a6'
+    warn.style.color = '#663c00'
+    warn.style.padding = '8px'
+    warn.style.border = '1px solid #cc9a00'
+    warn.style.borderRadius = '4px'
+    warn.style.marginTop = '8px'
+    document.body.insertBefore(warn, document.body.firstChild)
+    setTimeout(() => warn.remove(), 15000)
   })
 
   function addLog(msg) {

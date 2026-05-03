@@ -23,7 +23,9 @@ function listLockingProcesses() {
       }
     }
     return procs
-  } catch (e) {
+  } catch (err) {
+    // ignore errors but log for debugging
+    // console.debug(err)
     return []
   }
 }

@@ -141,6 +141,14 @@
         <button id="btn-select-dir">浏览...</button>
     </div>
 
+    <div style="margin-top:8px; display:flex; align-items:center; gap:12px;">
+        <label style="display:flex; align-items:center; gap:6px; color:#d4d4d4;">
+            <input type="checkbox" checked id="chk-rename-by-ctime">
+            按文件创建日期重命名
+        </label>
+        <small style="color:#888;">勾选后：输出名将为 原名_创建日期_随机后缀.mp4（随机后缀最多10字符）。若文件名过长或冲突，将使用序号后缀并在界面显著提醒。</small>
+    </div>
+
     <div id="drop-zone">💡 将 .ts 或 .flv 文件拖入或点击此处选择</div>
 
     <div id="queue-list">
