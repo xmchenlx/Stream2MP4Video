@@ -12,6 +12,14 @@ window.onload = () => {
   let fileQueue = []
   let isProcessing = false
 
+  function formatFileSize(bytes) {
+    const sizeInMB = bytes / 1024 / 1024
+    if (sizeInMB > 1024) {
+      return `${(sizeInMB / 1024).toFixed(2)} GB`
+    }
+    return `${sizeInMB.toFixed(2)} MB`
+  }
+
   // --- 强力拦截窗口默认拖拽 ---
   window.ondragover = window.ondrop = (e) => e.preventDefault()
 
@@ -25,7 +33,7 @@ window.onload = () => {
         (filePath.toLowerCase().endsWith('.ts') || filePath.toLowerCase().endsWith('.flv'))
       ) {
         if (!fileQueue.some((f) => f.path === filePath)) {
-          fileQueue.push({ path: filePath, name: file.name, status: 'ready' })
+          fileQueue.push({ path: filePath, name: file.name, size: file.size, status: 'ready' })
           added++
         }
       }
@@ -123,8 +131,9 @@ window.onload = () => {
     queueList.innerHTML = fileQueue
       .map(
         (file) => `
-      <div style="display:flex; justify-content:space-between; padding:8px; border-bottom:1px solid #333; font-size:12px;">
-        <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:70%;">${file.name}</span>
+      <div style="display:grid; grid-template-columns:minmax(0, 1fr) 90px 70px; gap:12px; align-items:center; padding:8px; border-bottom:1px solid #333; font-size:12px;">
+        <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${file.name}</span>
+        <span style="color:#bbb; text-align:right;">${formatFileSize(file.size)}</span>
         <span style="color:${file.status === 'done' ? '#4ec9b0' : file.status === 'processing' ? '#ffaa00' : '#888'}">
           ${file.status === 'ready' ? '等待' : file.status === 'processing' ? '转换中...' : '完成'}
         </span>
